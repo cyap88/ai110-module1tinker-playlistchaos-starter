@@ -92,7 +92,8 @@ def build_playlists(songs: List[Song], profile: Dict[str, object]) -> PlaylistMa
         normalized = normalize_song(song)
         mood = classify_song(normalized, profile)
         normalized["mood"] = mood
-        playlists[mood].append(normalized)
+        if mood != "Hype":
+            playlists[mood].append(normalized)
 
     return playlists
 
@@ -192,7 +193,8 @@ def lucky_pick(
 def random_choice_or_none(songs: List[Song]) -> Optional[Song]:
     """Return a random song or None."""
     import random
-
+    if not songs:
+        return None
     return random.choice(songs)
 
 
